@@ -1,5 +1,6 @@
 package parentTest;
 
+import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -8,19 +9,20 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import pages.FacebookPage;
 import pages.HomePage;
 import pages.LoginPage;
 
 import java.io.File;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Logger;
 
 
 public class ParentTest {
    protected WebDriver webDriver;
- //  Logger logger=Logger.getLogger(getClass());
    protected LoginPage loginPage;
    protected HomePage homePage;
+   protected FacebookPage facebookPage;
+   Logger logger=Logger.getLogger(getClass());
 
 
     @Before
@@ -30,13 +32,14 @@ public class ParentTest {
         webDriver = new ChromeDriver();
        // logger.info("Chrome started");
             webDriver.manage().window().maximize();
-            webDriver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+            webDriver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
             loginPage = new LoginPage(webDriver);
             homePage = new HomePage(webDriver);
+            facebookPage= new FacebookPage(webDriver);
         }
     protected void checkAC(String message, boolean actual, boolean expected) {
         if (actual != expected) {
-          //  logger.info("AC failed: " + message);
+         logger.info("AC failed: " + message);
             Assert.assertEquals(message, expected, actual);
         }
     }

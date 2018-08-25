@@ -6,6 +6,8 @@ import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 
+import java.util.concurrent.TimeUnit;
+
 public class ParentPage {
     Logger logger=Logger.getLogger(getClass());
     WebDriver webDriver;
@@ -25,6 +27,7 @@ public class ParentPage {
     }
     public void checkCurrentUrl () {
         try {
+            webDriver.manage().timeouts().implicitlyWait(20,TimeUnit.SECONDS);
             Assert.assertEquals("Url is not expected",expectedUrl,getCurrentUrl());
         } catch (Exception e) {
             logger.error("Can't work with url");
