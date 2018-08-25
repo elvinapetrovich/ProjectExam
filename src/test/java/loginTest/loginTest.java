@@ -1,31 +1,50 @@
 package loginTest;
 
+
 import org.junit.Assert;
 import org.junit.Test;
-import org.openqa.selenium.WebDriver;
-import pages.LoginPage;
 import parentTest.ParentTest;
+
+import java.util.concurrent.TimeUnit;
 
 public class loginTest extends ParentTest {
     @Test
-    public void ValidLogin () {
+    public void ValidLogin() {
         loginPage.openPage();
         loginPage.enterLogin("olgaautotest@mailinator.com");
         loginPage.enterPass("123456");
         loginPage.clickOnCookies();
         loginPage.clickOnSubmitButton();
+        webDriver.manage().timeouts().pageLoadTimeout(15, TimeUnit.SECONDS);
         homePage.checkCurrentUrl();
-        checkAC("Uvologo isn't present",homePage.isUvoPresent(),true);
+        checkAC("Uvologo isn't present", homePage.isUvoPresent(), true);
     }
     @Test
-public void InValidLogin () {
+    public void InValidLogin() {
         loginPage.openPage();
         loginPage.enterLogin("olgaautotest@mailinator.com");
         loginPage.enterPass("987654");
         loginPage.clickOnCookies();
         loginPage.clickOnSubmitButton();
         loginPage.checkCurrentUrl();
-    Assert.assertEquals("Url is not expected","https://www.uvocorp.com/login.html",
-            webDriver.getCurrentUrl());
-}
+        Assert.assertEquals("Url is not expected", "https://www.uvocorp.com/login.html",
+                webDriver.getCurrentUrl());
+    }
+
+//    @Test
+//    public void loginWithFacebook() {
+//        loginPage.openPage();
+//        loginPage.clickOnCookies();
+//        loginPage.LoginFB();
+//        loginPage.EnterFB("petrovskaolga@yahoo.com");
+    @Test
+    public void BannedStatusLogin () {
+        loginPage.openPage();
+        loginPage.enterLogin("autologinbanned@mailinator.com");
+        loginPage.enterPass("987654");
+        loginPage.clickOnCookies();
+        loginPage.clickOnSubmitButton();
+        loginPage.checkCurrentUrl();
+        checkAC("Banned text is not present",loginPage.isBannedTextPresent(),true);
+    }
 }

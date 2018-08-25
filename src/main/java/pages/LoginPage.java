@@ -17,6 +17,12 @@ public class LoginPage extends ParentPage {
     @FindBy (xpath = ".//*[@type='button']")
     private WebElement Cookies;
     Logger logger=Logger.getLogger(getClass());
+    @FindBy (id="facebookSubmit")
+    private WebElement logFB;
+    @FindBy (xpath = ".//input[@id='email']")
+    private WebElement userFBInput;
+    @FindBy (xpath = ".//*/p[contains(text(),'Your account has been banned. Reason: test.')]")
+    private WebElement bannedtext;
 
 
     public LoginPage(WebDriver webDriver) {
@@ -48,5 +54,15 @@ public class LoginPage extends ParentPage {
     }
 public void clickOnCookies () {
         actionWithOurElements.clickOnElement(".//*[@type='button' and text()='Accept']");
+}
+public void LoginFB () {
+        actionWithOurElements.clickOnElement(logFB);
+}
+public void EnterFB (String fblogin) {
+        actionWithOurElements.EnterTextToElement(userFBInput, fblogin);
+}
+
+public boolean isBannedTextPresent () {
+        return actionWithOurElements.isElementDisplay(bannedtext);
 }
 }
