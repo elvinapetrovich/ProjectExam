@@ -16,4 +16,7 @@ public class HomePage extends ParentPage {
     public boolean isUvoPresent() {
         return actionWithOurElements.isElementDisplay(logo);
     }
+    public void clickonRules () {
+        actionWithOurElements.clickOnElement(".//a[@href='https://www.uvocorp.com/backend/rules_and_regulations.html']");
+    }
 }
