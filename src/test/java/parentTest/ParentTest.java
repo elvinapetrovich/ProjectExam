@@ -4,15 +4,11 @@ import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Test;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import pages.FacebookPage;
 import pages.HomePage;
 import pages.LoginPage;
-
+import pages.RulesAndRegulationsPage;
 import java.io.File;
 import java.util.concurrent.TimeUnit;
 
@@ -21,8 +17,9 @@ public class ParentTest {
    protected WebDriver webDriver;
    protected LoginPage loginPage;
    protected HomePage homePage;
-   protected FacebookPage facebookPage;
+   protected RulesAndRegulationsPage rulesAndRegulationsPage;
    Logger logger=Logger.getLogger(getClass());
+
 
 
     @Before
@@ -35,7 +32,7 @@ public class ParentTest {
             webDriver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
             loginPage = new LoginPage(webDriver);
             homePage = new HomePage(webDriver);
-            facebookPage= new FacebookPage(webDriver);
+            rulesAndRegulationsPage=new RulesAndRegulationsPage(webDriver);
         }
     protected void checkAC(String message, boolean actual, boolean expected) {
         if (actual != expected) {
